@@ -29,7 +29,10 @@
 
     <script>
         var map = L.map('mapid').setView([35.873830, -78.530030], 14);
-        L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {}).addTo(map);
+        var OSM = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+	        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
 
         
         
@@ -45,7 +48,7 @@
         //     .bindPopup("My best friend, Josh's, house. Every summer we would spend the days walking between mine and his, hanging out in the neighborhood, and relaxing on his porch.<br/><img src='https://static.trulia-cdn.com/pictures/thumbs_5/ps.71/2/a/8/d/picture-uh=c9deda7987fdcaaa935bf80d389e6-ps=2a8d44b8cf23f20c1ae14569997c21.jpg'width='100px'/>")
         //     .openPopup();
 
-        L.marker([35.866940, -78.517520]).addTo(map)
+        var daMarker4 = L.marker([35.866940, -78.517520])
             .bindPopup("The adjacent neighborhood's pool where my friends and I would swim -- occasionally illegally by night because we were teenagers.<br/><img src='https://www.raleighhomesite.com/wp-content/uploads/massey-preserve-pool.jpg'width='100px'/>");
 
         // L.geoJSON(icon2).addTo(map);
@@ -67,7 +70,7 @@
 
         var blackIcon = L.icon({
             iconUrl: 'https://www.festivalclaca.cat/imgfv/b/0-8972_hexagym-yellow-map-marker-png.png',
-            iconSize: [45,50],
+            iconSize: [35,50],
             popupAnchor: [0,0],
         });
 
@@ -78,23 +81,20 @@
         var customPopup4 = "The route to my elementary school.";
         var customPopup5 = "The newest addition to the neighborhood.";
 
-        L.geoJSON(icon2, { // a
+        var daMarker1 = L.geoJSON(icon2, { // a
         pointToLayer: function (feature, latlng) { // b 
         return L.marker(latlng, {icon: greenIcon});}}) // c 
-        .bindPopup(customPopup1) // d
-        .addTo(map); //
+        .bindPopup(customPopup1); //
 
-        L.geoJSON(icon3, { // a
+        var daMarker2 = L.geoJSON(icon3, { // a
         pointToLayer: function (feature, latlng) { // b 
         return L.marker(latlng, {icon: redIcon});}}) // c 
-        .bindPopup(customPopup2) // d
-        .addTo(map); //
+        .bindPopup(customPopup2); //
 
-        L.geoJSON(icon4, { // a
+        var daMarker3 = L.geoJSON(icon4, { // a
         pointToLayer: function (feature, latlng) { // b 
         return L.marker(latlng, {icon: blackIcon});}}) // c 
-        .bindPopup(customPopup3) // d
-        .addTo(map); //
+        .bindPopup(customPopup3); //
 
         var polylinePoints = [
         [35.873830, -78.530030],
@@ -110,8 +110,7 @@
         ];            
       
         var polyline = L.polyline(polylinePoints)
-        .bindPopup(customPopup4)
-        .addTo(map); 
+        .bindPopup(customPopup4); 
 
         var polygonPoints = [
         [35.871786,-78.530509],
@@ -120,8 +119,30 @@
         ];
       
         var poly = L.polygon(polygonPoints)
-        .bindPopup(customPopup5)
-        .addTo(map);
+        .bindPopup(customPopup5);
+
+        var daPhoto = L.tileLayer('./tile/{z}/{x}/{y}.png', {
+        minZoom: 12,
+        maxZoom: 16,
+        tms: false,
+        attribution: 'USGS'
+        }).addTo(map);
+
+        var daTiles = {
+        "Open Street Map": OSM,
+        "USGS Photo": daPhoto,
+        };    
+
+        var daVectors = {
+        "My Parents' House": daMarker1,
+        "Horseshoe Farm Park": daMarker2,
+        "Josh's House": daMarker3,
+        "Massey Preserve Pool": daMarker4,
+        "Walk to the Elementary School": polyline,
+        "Newest Addition to the Neighborhood": poly
+        };
+
+        L.control.layers(daTiles, daVectors).addTo(map); 
 
 
 
