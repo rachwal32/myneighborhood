@@ -1,102 +1,79 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Neighborhood</title>
+  <title>Leaflet Preview</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-    crossorigin=""/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+   crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+   integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+   crossorigin=""></script>
+  <style type="text/css">
+    body {
+       margin: 0;
+       padding: 0;
+    }
+    html, body, #map{
+       width: 100%;
+       height: 100%;
+    }
+  </style>
 
-    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-    crossorigin=""></script>
-
-    <script src = "./icon1.geojson"></script>
-       
-
-
+  <script src = "./icon1.geojson"></script>
 
 </head>
 <body>
+  <div id="map"></div>
+  <script>
+      var map = L.map('map').setView([35.874176207101584, -78.5302071561911], 14.0);
 
-    <div id="mapid"></div>
-
-    <style>
-        #mapid{ width: 900px; height:500px};
-    </style>
-
-    <script>
-        var map = L.map('mapid').setView([35.873830, -78.530030], 14);
-        L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {}).addTo(map);
-
-        
-        
-        // L.marker([35.873830, -78.530030]).addTo(map)
-        //     .bindPopup("The location of my parents' current home. I have grown up here since 2008 and it contains many of my childhood memories.<br/><img src='https://photos.zillowstatic.com/cc_ft_768/ISug8ef38k8kwf1000000000.jpg'width='100px'/>")
-        //     .openPopup();
-
-        // L.marker([35.8843, -78.5367]).addTo(map)
-        //     .bindPopup("Horeshoe Farm Park: My favorite large field to take my dogs to run, access the greenway, or enjoy picnics with friends.<br/><img src='https://media-cdn.tripadvisor.com/media/photo-s/10/9a/23/d7/the-picnic-shelter.jpg'width='100px'/>")
-        //     .openPopup();
-
-        // L.marker([35.878330, -78.513400]).addTo(map)
-        //     .bindPopup("My best friend, Josh's, house. Every summer we would spend the days walking between mine and his, hanging out in the neighborhood, and relaxing on his porch.<br/><img src='https://static.trulia-cdn.com/pictures/thumbs_5/ps.71/2/a/8/d/picture-uh=c9deda7987fdcaaa935bf80d389e6-ps=2a8d44b8cf23f20c1ae14569997c21.jpg'width='100px'/>")
-        //     .openPopup();
-
-        L.marker([35.866940, -78.517520]).addTo(map)
-            .bindPopup("The adjacent neighborhood's pool where my friends and I would swim -- occasionally illegally by night because we were teenagers.<br/><img src='https://www.raleighhomesite.com/wp-content/uploads/massey-preserve-pool.jpg'width='100px'/>");
-
-        // L.geoJSON(icon2).addTo(map);
-        //L.geoJSON(icon3).addTo(map);
-        //L.geoJSON(icon4).addTo(map);
-        //L.geoJSON(icon5).addTo(map);
-
-        var greenIcon = L.icon({
+      var greenIcon = L.icon({
             iconUrl: 'https://svg-clipart.com/svg/map/nrlKVYn-green-pin-vector.svg',
             iconSize: [65,85],
             popupAnchor: [0,0],
         });
 
-        var redIcon = L.icon({
+      var redIcon = L.icon({
             iconUrl: 'https://cdn.pixabay.com/photo/2014/04/03/10/03/google-309740_1280.png',
             iconSize: [30,50],
             popupAnchor: [0,0],
         });
 
-        var blackIcon = L.icon({
-            iconUrl: 'https://images.vexels.com/media/users/3/131261/isolated/preview/b2e48580147ca0ed3f970f30bf8bb009-map-location-marker-by-vexels.png',
-            iconSize: [45,50],
+      var blackIcon = L.icon({
+            iconUrl: 'https://www.festivalclaca.cat/imgfv/b/0-8972_hexagym-yellow-map-marker-png.png',
+            iconSize: [35,50],
             popupAnchor: [0,0],
         });
 
+      var customPopup1 = "The location of my parents' current home. I have grown up here since 2008 and it contains many of my childhood memories.<br/><img src='https://photos.zillowstatic.com/cc_ft_768/ISug8ef38k8kwf1000000000.jpg'width='100px'/>";
+      var customPopup2 = "Horeshoe Farm Park: My favorite large field to take my dogs to run, access the greenway, or enjoy picnics with friends.<br/><img src='https://media-cdn.tripadvisor.com/media/photo-s/10/9a/23/d7/the-picnic-shelter.jpg'width='100px'/>";
+      var customPopup3 = "My best friend, Josh's, house. Every summer we would spend the days walking between mine and his, hanging out in the neighborhood, and relaxing on his porch.<br/><img src='https://static.trulia-cdn.com/pictures/thumbs_5/ps.71/2/a/8/d/picture-uh=c9deda7987fdcaaa935bf80d389e6-ps=2a8d44b8cf23f20c1ae14569997c21.jpg'width='100px'/>";
+      var customPopup4 = "The route to my elementary school.";
+      var customPopup5 = "The newest addition to the neighborhood.";
 
-        var customPopup1 = "The location of my parents' current home. I have grown up here since 2008 and it contains many of my childhood memories.<br/><img src='https://photos.zillowstatic.com/cc_ft_768/ISug8ef38k8kwf1000000000.jpg'width='100px'/>";
-        var customPopup2 = "Horeshoe Farm Park: My favorite large field to take my dogs to run, access the greenway, or enjoy picnics with friends.<br/><img src='https://media-cdn.tripadvisor.com/media/photo-s/10/9a/23/d7/the-picnic-shelter.jpg'width='100px'/>";
-        var customPopup3 = "My best friend, Josh's, house. Every summer we would spend the days walking between mine and his, hanging out in the neighborhood, and relaxing on his porch.<br/><img src='https://static.trulia-cdn.com/pictures/thumbs_5/ps.71/2/a/8/d/picture-uh=c9deda7987fdcaaa935bf80d389e6-ps=2a8d44b8cf23f20c1ae14569997c21.jpg'width='100px'/>";
-        var customPopup4 = "The route to my elementary school.";
-        var customPopup5 = "The newest addition to the neighborhood.";
-
-        L.geoJSON(icon2, { // a
+      var daMarker1 = L.geoJSON(icon2, { // a
         pointToLayer: function (feature, latlng) { // b 
         return L.marker(latlng, {icon: greenIcon});}}) // c 
-        .bindPopup(customPopup1) // d
-        .addTo(map); //
+        .bindPopup(customPopup1); //
 
-        L.geoJSON(icon3, { // a
+      var daMarker2 = L.geoJSON(icon3, { // a
         pointToLayer: function (feature, latlng) { // b 
         return L.marker(latlng, {icon: redIcon});}}) // c 
-        .bindPopup(customPopup2) // d
-        .addTo(map); //
+        .bindPopup(customPopup2); //
 
-        L.geoJSON(icon4, { // a
+      var daMarker3 = L.geoJSON(icon4, { // a
         pointToLayer: function (feature, latlng) { // b 
         return L.marker(latlng, {icon: blackIcon});}}) // c 
-        .bindPopup(customPopup3) // d
-        .addTo(map); //
+        .bindPopup(customPopup3); //
 
-        var polylinePoints = [
+      var daMarker4 = L.marker([35.866940, -78.517520])
+            .bindPopup("The adjacent neighborhood's pool where my friends and I would swim -- occasionally illegally by night because we were teenagers.<br/><img src='https://www.raleighhomesite.com/wp-content/uploads/massey-preserve-pool.jpg'width='100px'/>");
+
+      var polylinePoints = [
         [35.873830, -78.530030],
         [35.873525,-78.529391],
         [35.872768, -78.528925],
@@ -109,25 +86,46 @@
         [35.874933,-78.511410]
         ];            
       
-        var polyline = L.polyline(polylinePoints)
-        .bindPopup(customPopup4)
-        .addTo(map); 
+      var polyline = L.polyline(polylinePoints)
+        .bindPopup(customPopup4); 
 
-        var polygonPoints = [
+      var polygonPoints = [
         [35.871786,-78.530509],
         [35.871725,-78.526467],
         [35.869160,-78.526575]
         ];
       
-        var poly = L.polygon(polygonPoints)
-        .bindPopup(customPopup5)
-        .addTo(map);
+      var poly = L.polygon(polygonPoints)
+        .bindPopup(customPopup5);
 
+      var OSM = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+	      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
 
+      var daPhoto = L.tileLayer('./tile/{z}/{x}/{y}.png', {
+        minZoom: 12,
+        maxZoom: 16,
+        tms: false,
+        attribution: 'USGS'
+      }).addTo(map);
 
+      var daTiles = {
+        "Open Street Map": OSM,
+        "USGS Photo": daPhoto,
+      };    
 
+      var daVectors = {
+        "My Parents' House": daMarker1,
+        "Horseshoe Farm Park": daMarker2,
+        "Josh's House": daMarker3,
+        "Massey Preserve Pool": daMarker4,
+        "Walk to the Elementary School": polyline,
+        "Newest Addition to the Neighborhood": poly
+      };
 
-    </script>
-    
+      L.control.layers(daTiles, daVectors).addTo(map);  
+
+  </script>
 </body>
 </html>
