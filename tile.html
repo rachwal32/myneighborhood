@@ -31,21 +31,27 @@
   <script>
       var map = L.map('map').setView([35.874176207101584, -78.5302071561911], 14.0);
 
-      var greenIcon = L.icon({
-            iconUrl: 'https://svg-clipart.com/svg/map/nrlKVYn-green-pin-vector.svg',
-            iconSize: [65,85],
+      var homeIcon = L.icon({
+            iconUrl: 'https://cdn0.iconfinder.com/data/icons/map-and-navigation-2-1/48/100-512.png',
+            iconSize: [50,50],
             popupAnchor: [0,0],
         });
-
-      var redIcon = L.icon({
-            iconUrl: 'https://cdn.pixabay.com/photo/2014/04/03/10/03/google-309740_1280.png',
+        
+        var greenIcon = L.icon({
+            iconUrl: 'https://cdn.pixabay.com/photo/2014/04/03/10/03/google-309741_960_720.png',
             iconSize: [30,50],
             popupAnchor: [0,0],
         });
 
-      var blackIcon = L.icon({
-            iconUrl: 'https://www.festivalclaca.cat/imgfv/b/0-8972_hexagym-yellow-map-marker-png.png',
-            iconSize: [35,50],
+        var redIcon = L.icon({
+            iconUrl: 'https://cdn.pixabay.com/photo/2014/04/03/10/03/google-309740_960_720.png',
+            iconSize: [30,50],
+            popupAnchor: [0,0],
+        });
+
+        var navyIcon = L.icon({
+            iconUrl: 'https://cdn.pixabay.com/photo/2014/04/03/10/03/google-309739_960_720.png',
+            iconSize: [30,50],
             popupAnchor: [0,0],
         });
 
@@ -54,24 +60,27 @@
       var customPopup3 = "My best friend, Josh's, house. Every summer we would spend the days walking between mine and his, hanging out in the neighborhood, and relaxing on his porch.<br/><img src='https://static.trulia-cdn.com/pictures/thumbs_5/ps.71/2/a/8/d/picture-uh=c9deda7987fdcaaa935bf80d389e6-ps=2a8d44b8cf23f20c1ae14569997c21.jpg'width='100px'/>";
       var customPopup4 = "The route to my elementary school.";
       var customPopup5 = "The newest addition to the neighborhood.";
+      var customPopup6 = "The adjacent neighborhood's pool where my friends and I would swim -- occasionally illegally by night because we were teenagers.<br/><img src='https://www.raleighhomesite.com/wp-content/uploads/massey-preserve-pool.jpg'width='100px'/>"
 
       var daMarker1 = L.geoJSON(icon2, { // a
         pointToLayer: function (feature, latlng) { // b 
-        return L.marker(latlng, {icon: greenIcon});}}) // c 
+        return L.marker(latlng, {icon: homeIcon});}}) // c 
         .bindPopup(customPopup1); //
 
-      var daMarker2 = L.geoJSON(icon3, { // a
+        var daMarker2 = L.geoJSON(icon3, { // a
         pointToLayer: function (feature, latlng) { // b 
         return L.marker(latlng, {icon: redIcon});}}) // c 
         .bindPopup(customPopup2); //
 
-      var daMarker3 = L.geoJSON(icon4, { // a
+        var daMarker3 = L.geoJSON(icon4, { // a
         pointToLayer: function (feature, latlng) { // b 
-        return L.marker(latlng, {icon: blackIcon});}}) // c 
+        return L.marker(latlng, {icon: greenIcon});}}) // c 
         .bindPopup(customPopup3); //
 
-      var daMarker4 = L.marker([35.866940, -78.517520])
-            .bindPopup("The adjacent neighborhood's pool where my friends and I would swim -- occasionally illegally by night because we were teenagers.<br/><img src='https://www.raleighhomesite.com/wp-content/uploads/massey-preserve-pool.jpg'width='100px'/>");
+        var daMarker4 = L.geoJSON(icon5, { // a
+        pointToLayer: function (feature, latlng) { // b 
+        return L.marker(latlng, {icon: navyIcon});}}) // c 
+        .bindPopup(customPopup6); //
 
       var polylinePoints = [
         [35.873830, -78.530030],
